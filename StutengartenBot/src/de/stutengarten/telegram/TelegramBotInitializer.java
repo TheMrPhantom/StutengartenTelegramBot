@@ -2,25 +2,30 @@ package de.stutengarten.telegram;
 
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
 public class TelegramBotInitializer {
-	
-	public static void initializeBot() {
-		ApiContextInitializer.init();
-		TelegramBotsApi botsApi = new TelegramBotsApi();
 
-		try {
+	private static boolean IS_STARTED = false;
 
-			StutengartenBot bot = new StutengartenBot();
+	/**
+	 * 
+	 * Starts the TelegramBot
+	 * 
+	 * @throws TelegramApiRequestException If the bot could not be started
+	 */
+	public static void initializeBot() throws TelegramApiRequestException  {
+		if (!IS_STARTED) {
+			ApiContextInitializer.init();
+			TelegramBotsApi botsApi = new TelegramBotsApi();
 
-			botsApi.registerBot(bot);
+				StutengartenBot bot = new StutengartenBot();
 
-			System.out.println("Bot started");
+				botsApi.registerBot(bot);
+
+				System.out.println("Bot started");
+				IS_STARTED = true;
 			
-		} catch (TelegramApiException e) {
-			System.err.println("Unable to start telegram bot");
-
 		}
 	}
 }

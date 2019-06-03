@@ -7,24 +7,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
+import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
+
 import com.google.gson.Gson;
 
 import de.propro.backend.dijkstra.Dijkstra;
 import de.propro.backend.dijkstra.DijkstraOneToAllResult;
+import de.stutengarten.telegram.TelegramBotInitializer;
 
 @Path("/telegram")
 public class API {
 
 	/**
 	 * 
-	 * Handles a request for the one to all Dijkstra. You can either pass a nodeID
+	 * TODO
 	 * 
-	 * @param nodeID    The index of the node to start from
-	 * @param latitude  The latitude of the coordinate. It's not required that the
-	 *                  latitude is a valid coordinate of a node.
-	 * @param longitude The latitude of the coordinate. It's not required that the
-	 *                  latitude is a valid coordinate of a node.
-	 * @return The processing time and the distance to all nodes from the start node
 	 */
 	@GET
 	@Path("message")
@@ -37,8 +34,29 @@ public class API {
 		Response output = null;
 		Gson jsonHandler = new Gson();
 
-
 		return output;
 	}
 
+	/**
+	 * 
+	 * HTTP call for starting the telegram bot. The bot will be be able to send
+	 * Messages until this method is called. You are anyway able to send message
+	 * requests, these will be send after the bot is started
+	 * 
+	 * @return 200 If bot started, 500 else
+	 */
+	@GET
+	@Path("start")
+	public Response startBot() {
+
+		ResponseBuilder response = null;
+		try {
+			TelegramBotInitializer.initializeBot();
+			response = Response.ok();
+		} catch (TelegramApiRequestException e) {
+			response = Response.status(500);
+		}
+
+		return response.build();
+	}
 }
