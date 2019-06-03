@@ -9,6 +9,9 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
+import com.google.gson.Gson;
+
+import de.stutengarten.json.IncomingMessage;
 import de.stutengarten.telegram.TelegramBotInitializer;
 
 @Path("/telegram")
@@ -23,6 +26,10 @@ public class API {
 	@Path("message")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response oneToAllDijkstra(String message) {
+
+		Gson json = new Gson();
+		IncomingMessage incMessage = json.fromJson(message, IncomingMessage.class);
+
 		/*
 		 * ResponseBuilder response = null; Dijkstra dijkstra = null;
 		 * DijkstraOneToAllResult dResult = null; Response output = null; Gson
