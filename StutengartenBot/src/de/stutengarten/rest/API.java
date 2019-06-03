@@ -9,10 +9,6 @@ import javax.ws.rs.core.Response.ResponseBuilder;
 
 import org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException;
 
-import com.google.gson.Gson;
-
-import de.propro.backend.dijkstra.Dijkstra;
-import de.propro.backend.dijkstra.DijkstraOneToAllResult;
 import de.stutengarten.telegram.TelegramBotInitializer;
 
 @Path("/telegram")
@@ -27,14 +23,14 @@ public class API {
 	@Path("message")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response oneToAllDijkstra(String message) {
-
-		ResponseBuilder response = null;
-		Dijkstra dijkstra = null;
-		DijkstraOneToAllResult dResult = null;
-		Response output = null;
-		Gson jsonHandler = new Gson();
-
-		return output;
+		/*
+		 * ResponseBuilder response = null; Dijkstra dijkstra = null;
+		 * DijkstraOneToAllResult dResult = null; Response output = null; Gson
+		 * jsonHandler = new Gson();
+		 * 
+		 * return output;
+		 */
+		return null;
 	}
 
 	/**
